@@ -1,15 +1,17 @@
 <template>
-  <hello-world />
+  <div>
+    <Header />
+    <Footer />
+  </div>
 </template>
 
 <script>
-  import HelloWorld from '../components/HelloWorld'
-
+import Header from '../src/layout/Header'
+import Footer from '../src/layout/Footer'
   export default {
     name: 'Home',
-
     components: {
-      HelloWorld,
+      Header, Footer
     },
   }
 </script>
