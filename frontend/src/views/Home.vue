@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import Header from '../src/layout/Header'
-import Footer from '../src/layout/Footer'
+import Header from '../layout/Header'
+import Footer from '../layout/Footer'
   export default {
     name: 'Home',
     components: {

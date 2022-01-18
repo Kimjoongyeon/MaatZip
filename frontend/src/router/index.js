@@ -2,6 +2,10 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 
+//회원가입 + 로그인
+import MemberLoginPage from '../views/member/MemberLoginPage.vue'
+import MemberJoinPage from '../views/member/MemberJoinPage.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -9,7 +13,18 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
-  }
+  },
+  {
+    path: '/login',
+    name: 'MemberLoginPage',
+    component: MemberLoginPage
+  },
+  {
+    path: '/join',
+    name: 'MemberJoinPage',
+    component: MemberJoinPage
+  },
+
 ]
 
 const router = new VueRouter({
