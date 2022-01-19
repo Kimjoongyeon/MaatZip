@@ -63,7 +63,7 @@ export default {
 
 	* {
 		font-family: 'Noto Sans KR', sans-serif;
-		margin: auto;
+		margin: 0 auto;
 	}
 
 	h1 {

@@ -1,12 +1,9 @@
 <template>
     <div>
         <div align="center">
-            <h1>회원가입</h1>
+            <h2>신규 회원가입</h2>
         </div>
-        
-        <member-join-form v-bind:kakao_account="kakao_account" @submit="onSubmit"/>
-   
-     
+        <member-join-form @submit="onSubmit"/>
     </div>
 </template>
 
@@ -19,29 +16,22 @@ export default {
         MemberJoinForm
     },
     props: {
-        kakao_account: {
-            type: Object,
-            require: true
-        }
     },
     methods: {
-        onSubmit (payload) {
-            const { userId, password, email, name, birth, sex, phone, auth } = payload
-            axios.post('http://localhost:7777/member/register', {
-                        userId, password, email, name, birth, sex, phone, auth
-                    })
-                    .then(res => {
-                        alert('회원가입이 완료되었습니다' + res)
-                        
-                        this.$router.push({
-                            name: 'Home'
-                            
-                        })
-                        
-                    })
-                    .catch(res => {
-                        alert(res.response.data.message)
-                    })
+      onSubmit (payload) {
+        const { password, email, name, phone, auth } = payload
+        axios.post('http://localhost:7777/member/register', {
+            password, email, name, phone, auth
+          })
+          .then(res => {
+              alert('회원가입이 완료되었습니다' + res)
+              this.$router.push({
+                  name: 'Home'  
+              }) 
+          })
+          .catch(res => {
+              alert(res.response.data.message)
+          })
         }
     }
 }

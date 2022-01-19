@@ -3,20 +3,16 @@
     <form @submit.prevent="onSubmit">
 			<v-card class="pa-10 mx-auto" width="500">
 				
-				<v-radio-group v-model="radioGroup" row class="mb-2">
-          <v-radio  v-for="kinds in kindsOfMember" :key="kinds" :label="`${kinds}`"></v-radio>
-        </v-radio-group>
-
-				<span>아이디</span>
+        <span>이메일</span>
 				<div class="d-flex mt-3">
-					<v-text-field v-model="userId" :rules="idRules" required
-						solo @change="changeId"></v-text-field>
-					<v-btn v-if="!completeId" @click="checkId" class="mt-1 ml-2 white--text secondary">확인</v-btn>
-					<v-btn v-else @click="checkId" class="mt-1 ml-2 secondary--text" icon>
-						<v-icon>check</v-icon>
-					</v-btn>
+					<v-text-field v-model="email" :rules="emailRules" required
+						solo @change="changeEmail"></v-text-field>
 				</div>
-				
+
+				<span>이름</span>
+				<v-text-field v-model="name" :rules="nameRules" required
+					solo class="mt-3"></v-text-field>
+
 				<span>비밀번호</span>
 				<v-text-field v-model="password" :rules="pwRules"	type="password" required
 					solo class="mt-3"></v-text-field>
@@ -24,40 +20,6 @@
 				<span>비밀번호 확인</span>
 				<v-text-field v-model="checkPassword" :rules="matchPwRules"	type="password" required
 					solo class="mt-3"></v-text-field>
-
-				<span>이메일</span>
-				<div class="d-flex mt-3">
-					<v-text-field v-model="email" :rules="emailRules" required
-						solo @change="changeEmail"></v-text-field>
-					<v-btn v-if="!completeEmail" @click="checkEmail" class="mt-1 ml-2 white--text secondary">인증</v-btn>
-					<v-btn v-else @click="checkEmail" class="mt-1 ml-2 secondary--text" icon>
-						<v-icon>check</v-icon>
-					</v-btn>
-				</div>
-
-				<span>이름</span>
-				<v-text-field v-model="name" :rules="nameRules" required
-					solo class="mt-3"></v-text-field>
-
-				<span>생일</span>
-				<v-menu ref="menu" v-model="menu" :return-value.sync="date" 
-          transition="scale-transition" offset-y min-width="auto">
-					<template v-slot:activator="{ on }">
-            <v-text-field v-on="on" v-model="birth" :rules="birthRules" required
-              solo append-icon="mdi-calendar" class="mt-3"></v-text-field>
-					</template>
-					<v-date-picker v-model="birth" color="secondary"
-						no-title crollable>
-						<v-btn text @click="menu = false"> Cancel </v-btn>
-						<v-spacer></v-spacer>
-						<v-btn text @click="$refs.menu.save(date)"> OK </v-btn>
-					</v-date-picker>
-				</v-menu>
-
-				<span>성별</span>
-				<v-radio-group v-model="radioGroup2" row class="mb-1">
-          <v-radio v-for="gender in kindsOfGender" :key="gender" :label="`${gender}`"></v-radio>
-        </v-radio-group>
 
 				<span>핸드폰</span>
 				<v-text-field v-model="phone" :rules="phoneRules" required
@@ -115,29 +77,14 @@ import axios from 'axios'
 export default {
 	name: 'MemberJoinForm',
 	props: {
-		kakao_account: {
-			type: Object,
-			require: true
-		}
 	},
 	data () {
 		return {
 			radioGroup: null,
 			radioGroup2: null,
-			kindsOfMember: [
-					'개인',
-					'사업자'
-			],
-			kindsOfGender: [
-					'남자',
-					'여자'
-			],
-			userId: '',
 			password: '',
 			email: '',
 			name: '',
-			birth: '',
-			sex: '',
 			phone: '',
 			menu: false,
 			date: null,
@@ -156,20 +103,15 @@ export default {
 		}
 	},
 	mounted() {
-		// console.log(this.kakao_account)
-		// this.email = this.kakao_account.email
-		// this.birth = this.kakao_account.birthday
 	},
 	computed: {
 		...mapState(['idRules', 'pwRules', 'emailRules', 'nameRules', 'birthRules', 'phoneRules'])
 	},
 	methods: {
 		onSubmit () {
-			const { userId, password, email, name, birth, radioGroup2, phone, radioGroup } = this
-			const auth = radioGroup == 0 ? '개인' : '사업자'
-			const sex = radioGroup2 == 0 ? '남자' : '여자'
+			const { password, email, name, phone, auth } = this
 			if (this.completeId && this.completeEmail) { 
-					this.$emit('submit', { userId, password, email, name, birth, sex, phone, auth })
+					this.$emit('submit', { password, email, name, phone, auth })
 			} else {
 				alert("아이디 또는 이메일 인증을 완료해주세요.")
 			}
