@@ -2,7 +2,7 @@
   <header>
     <div>
 			<h1>
-				<img src="@/assets/img/logo.png" @click="Gomain" width="250px" height="80px" style="margin-left: -30px">
+				<img src="@/assets/img/logo.png" @click="Gomain" class="logo">
 			</h1>
       <!--<ul><input type="text" class="form_control" placeholder="검색 키워드를 입력하세요!" flat none></ul>-->
     </div>
@@ -91,6 +91,13 @@ export default {
 		content: "";
 		display: block;
 		clear: both;
+	}
+
+	.logo{
+		width:250px; 
+		height:80px; 
+		margin-left: -30px;
+		cursor: pointer
 	}
 
 	.right-header {

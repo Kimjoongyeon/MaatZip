@@ -1,8 +1,5 @@
 <template>
     <div>
-        <div align="center">
-            <h2>신규 회원가입</h2>
-        </div>
         <member-join-form @submit="onSubmit"/>
     </div>
 </template>

@@ -1,72 +1,56 @@
 <template>
-  <v-container>
-    <form @submit.prevent="onSubmit">
-			<v-card class="pa-10 mx-auto" width="500">
-				
-        <span>이메일</span>
-				<div class="d-flex mt-3">
-					<v-text-field v-model="email" :rules="emailRules" required
-						solo @change="changeEmail"></v-text-field>
+	<v-container>
+    <header class="header">
+				<img src="@/assets/img/logo.png" class="logo" @click="Gomain" width="250px">
+    </header>
+		<div class="table">
+			<div class="title">
+				신규 회원가입하기
+			</div>
+			<table>
+				<tr>
+					<th>휴대전화인증</th>
+					<td></td>
+				</tr>
+				<tr>
+					<th>이름</th>
+					<td>
+						<input class="txt_area" type="text" v-model="name" placeholder="이름" :rules="nameRules"><br><br>
+						회원정보로 등록하실 이름을 입력해주세요. 영문 혹은 한글2~15자 이내로 입력해주세요.
+					</td>
+				</tr>
+				<tr>
+					<th>이메일</th>
+					<td>
+						<input class="txt_area" type="text" v-model="email" placeholder="이메일" :rules="emailRules"><br><br>
+						이용하실 이메일을 입력해 주세요.
+					</td>
+				</tr>
+				<tr>
+					<th>비밀번호</th>
+					<td>
+						<input class="txt_area" type="text" v-model="password" placeholder="비밀번호" :rules="pwRules"><br><br>
+						<input class="txt_area" type="text" v-model="checkPassword" placeholder="비밀번호 확인" :rules="matchPwRules"><br><br>
+						특수문자(예: !@#$ 등) 1자 이상을 포함한 10~15 글자의 비밀번호로 설정해주세요.
+					</td>
+				</tr>
+			</table>
+				<div class="terms_title">이용약관</div>
+				<div class="terms_check">
+					<div><label class="checkbox fl" style="">
+						<input id="ckb_service" type="checkbox" value="Y">
+						<i class="check-icon" style=""></i> <span class="fs-13 fw-b" style="">이용약관</span></label></div>
+					<div></div>
+					<div></div>
 				</div>
-
-				<span>이름</span>
-				<v-text-field v-model="name" :rules="nameRules" required
-					solo class="mt-3"></v-text-field>
-
-				<span>비밀번호</span>
-				<v-text-field v-model="password" :rules="pwRules"	type="password" required
-					solo class="mt-3"></v-text-field>
-
-				<span>비밀번호 확인</span>
-				<v-text-field v-model="checkPassword" :rules="matchPwRules"	type="password" required
-					solo class="mt-3"></v-text-field>
-
-				<span>핸드폰</span>
-				<v-text-field v-model="phone" :rules="phoneRules" required
-					solo class="mt-3"></v-text-field>
-         
-				<v-card-actions>
-					<v-btn @click="goHome" outlined>취소</v-btn>
-					<v-spacer></v-spacer>
-					<v-btn @click="onSubmit" class="secondary">회원가입</v-btn>
-				</v-card-actions>
-			</v-card>
-    </form>
-
-    <v-dialog v-model="idDialog" max-width="400">
-      <v-card v-if="!canUseId" class="pa-3">
-        <v-card-title>사용할 수 없는 아이디입니다.</v-card-title>
-        <v-card-text>다른 아이디를 사용해주세요.</v-card-text>
-        <v-text-field v-model="userId" :rules="idRules" required
-				 label="아이디" class="mx-5" solo></v-text-field>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn @click="checkId" class="white--text secondary">확인</v-btn>
-        </v-card-actions>
-      </v-card>
-
-      <v-card v-else class="pa-3">
-        <v-card-title class="mb-10">사용 가능한 아이디입니다.</v-card-title>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn @click="closeDialog" class="white--text secondary">사용하기</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
-    <v-dialog v-model="emailDialog" max-width="400">
-      <v-card class="pa-3">
-        <v-card-title>메일함을 확인해주세요.</v-card-title>
-        <v-card-text>인증번호 6자리를 입력해주세요.</v-card-text>
-        <v-text-field v-model="code"
-          label="인증번호" class="mx-5" solo></v-text-field>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn @click="ckeckCode" class="white--text secondary">확인</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-  </v-container>
+				<div class="terms_allCheck">
+					
+				</div>
+			<div class="row">
+				<button class="join_btn" type="button">회원가입하기</button>
+			</div>
+		</div>
+	</v-container>	
 </template>
 
 
@@ -80,14 +64,10 @@ export default {
 	},
 	data () {
 		return {
-			radioGroup: null,
-			radioGroup2: null,
 			password: '',
 			email: '',
 			name: '',
 			phone: '',
-			menu: false,
-			date: null,
 			checkPassword: null,
 			matchPwRules: [
 					pw => !!pw || '비밀번호를 입력해주세요!',
@@ -105,7 +85,7 @@ export default {
 	mounted() {
 	},
 	computed: {
-		...mapState(['idRules', 'pwRules', 'emailRules', 'nameRules', 'birthRules', 'phoneRules'])
+		...mapState(['pwRules', 'emailRules', 'nameRules'])
 	},
 	methods: {
 		onSubmit () {
@@ -116,24 +96,6 @@ export default {
 				alert("아이디 또는 이메일 인증을 완료해주세요.")
 			}
 			//this.$emit('submit', { userId, password, email, name, birth, sex, phone, auth })
-		},
-		checkId () {
-			const userId = this.userId
-			if (userId) {
-				axios.post(`http://localhost:7777/member/checkId/${userId}`).then(res => {
-					this.canUseId = res.data
-					this.idDialog = true
-					if (this.canUseId) {
-						this.completeId = true
-					}
-					
-				})
-			} else {
-				alert('아이디를 입력해주세요.')
-			}
-		},
-		closeDialog () {
-			this.idDialog = false
 		},
 		checkEmail () {
 			const email = this.email
@@ -172,3 +134,119 @@ export default {
 	}
 }
 </script>
+
+<style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+
+  *{
+		font-family: 'Noto Sans KR', sans-serif;
+		margin: 0 auto;
+	}
+	
+	.header{
+    text-align: center;
+  }
+
+  .logo{
+    cursor: pointer
+  }
+
+	th{
+		width: 260px;
+		height: 138px;
+		font-weight: 700;
+		text-align: left;
+		font-size: 15px;
+		
+		background-color: #F9F9F9;
+		border-bottom: 1px solid #E0E0E0;
+		padding: 1px 1px 1px 38px;
+
+		border-collapse: collapse;
+		border-spacing: 2px 2px;
+		
+	}
+
+	td{
+		width: 700px;
+		height: 138px;
+		text-align: left;
+		font-size: 13px;
+
+		border-bottom: 1px solid  #E0E0E0;
+		padding: 24px 48px 24px 48px;
+		border-spacing: 2px 2px;
+	}
+
+	.title{
+		height: 102px;
+		width: 953px;
+		padding: 50px 0px 25px 0px;
+		text-align: left;
+
+		font-size: 20px;
+		font-weight: 700;
+	}
+
+	.table{
+		padding: 0 0 24px 0px;
+		text-align: center;
+	}
+
+	.txt_area{
+		height: 40px;
+		width: 400px;
+		border: 1px solid  #D5D5D5;
+		padding: 1px 2px 1px 10px;
+	}
+
+	.terms_title{
+		font-size: 20px;
+		font-weight: 700;
+		text-align: left;
+
+		height: 103px;
+		width: 960px;
+		border-bottom	: 1px solid  #E0E0E0;
+		padding: 50px 12px 25px 12px;
+	}
+
+	.terms_check{
+		height: 174px;
+		width: 960px;
+		padding: 30px 50px 30px 50px;
+	}
+
+	.terms_allCheck{
+		height: 80px;
+		width: 960px;
+		border-top: 1px solid  #E0E0E0;
+		border-bottom: 1px solid  #E0E0E0;
+		padding: 24px 50px 24px 50px;
+
+		background-color:  #F9F9F9;
+		text-align: right;
+	}
+
+	.row{
+		height: 170px;
+		width: 960px;
+		margin: 0 346px 0 346px;
+		padding: 50px 0 55px 0;
+	}
+
+	.join_btn{
+		font-size: 16px;
+		text-align: center;
+
+		height: 65px;
+		width: 400px;
+		padding: 1px 6px 1px 6px;
+
+		background-color:  #09D2E5;
+		background-position: 0% 0%;
+		color:  #FFFFFF;
+		/*padding: 50px 0px 55px;*/
+	}
+
+</style>
