@@ -1,7 +1,7 @@
 <template>
 	<v-container>
     <header class="header">
-				<img src="@/assets/img/logo.png" class="logo" @click="Gomain" width="250px">
+				<img src="@/assets/img/logo.png" class="logo" @click="goMain" width="250px">
     </header>
 		<div class="table">
 			<div class="title">
@@ -37,9 +37,13 @@
 			</table>
 				<div class="terms_title">이용약관</div>
 				<div class="terms_check">
-					<div><label class="checkbox fl" style="">
-						<input id="ckb_service" type="checkbox" value="Y">
-						<i class="check-icon" style=""></i> <span class="fs-13 fw-b" style="">이용약관</span></label></div>
+					<div>
+						<label class="checkbox fl" style="">
+							<input type="checkbox" v-model="Y">
+								<i class="check-icon"></i><span class="terms_txt">이용약관
+									</span>
+								</label>
+							</div>
 					<div></div>
 					<div></div>
 				</div>
@@ -128,7 +132,7 @@ export default {
 		changeEmail () {
 			this.completeEmail = false
 		},
-		goHome () {
+		goMain () {
 			this.$router.push({ name: 'Home' })
 		}
 	}
@@ -228,10 +232,16 @@ export default {
 		text-align: right;
 	}
 
+	.terms_txt{
+		font-size: 13px;
+		font-weight: 700;
+		cursor: pointer
+	}
+
 	.row{
 		height: 170px;
 		width: 960px;
-		margin: 0 346px 0 346px;
+		
 		padding: 50px 0 55px 0;
 	}
 
