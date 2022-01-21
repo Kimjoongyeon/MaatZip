@@ -13,4 +13,7 @@ export default {
   nameRules: [
     name => !!name || '이름을 입력해주세요!'
   ],
+  phoneRules: [
+    phone => !!phone || '전화번호를 입력해주세요!'
+  ],
 };

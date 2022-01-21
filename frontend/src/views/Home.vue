@@ -2,9 +2,7 @@
   <div>
     <Header />
     <div class="banner">
-      <swiper>
-				<swiper-slide><img class="swiper_bn" src="../assets/img/banner.jpg"></swiper-slide>
-			</swiper>
+      <v-img :src="require('@/assets/img/banner.jpg')" height="450px" width="100%"/>
 				<div class=tabHouse>
           <h1 class="main_text">솔직한 리뷰, 믿을 수 있는 평점</h1><p class="main_text">Yami!</p>
         <fieldset class="main_search">

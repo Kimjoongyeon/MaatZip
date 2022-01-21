@@ -8,7 +8,7 @@
 import MemberJoinForm from '@/components/member/MemberJoinForm'
 import axios from 'axios'
 export default {
-    name: 'MemberRegisterPage',
+    name: 'MemberJoinPage',
     components: {
         MemberJoinForm
     },
@@ -16,9 +16,9 @@ export default {
     },
     methods: {
       onSubmit (payload) {
-        const { password, email, name, phone, auth } = payload
+        const { password, email, name, phone } = payload
         axios.post('http://localhost:7777/member/register', {
-            password, email, name, phone, auth
+            password, email, name, phone
           })
           .then(res => {
               alert('회원가입이 완료되었습니다' + res)

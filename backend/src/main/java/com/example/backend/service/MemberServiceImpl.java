@@ -32,12 +32,12 @@ public class MemberServiceImpl implements MemberService{
         String encodedPassword = encoder.encode(memberRequest.getPassword());
         memberRequest.setPassword(encodedPassword);
 
-        MemberAuth authEntity = new MemberAuth(memberRequest.getAuth());
+        /*MemberAuth authEntity = new MemberAuth(memberRequest.getAuth());
         Member memberEntity = new Member(memberRequest.getPassword(), memberRequest.getEmail(),
                 memberRequest.getName(), memberRequest.getPhone(), memberRequest.getPause());
-        memberEntity.addAuth(authEntity);
+        /memberEntity.addAuth(authEntity);
 
-        repository.save(memberEntity);
+        repository.save(memberEntity);*/
     }
 
     @Override

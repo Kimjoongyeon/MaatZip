@@ -1,5 +1,6 @@
 <template>
 	<v-container>
+		<form @submit.prevent="onSubmit">
     <header class="header">
 				<img src="@/assets/img/logo.png" class="logo" @click="goMain" width="250px">
     </header>
@@ -10,7 +11,10 @@
 			<table>
 				<tr>
 					<th>휴대전화인증</th>
-					<td></td>
+					<td>
+						<input class="txt_area" type="number" v-model="phone" placeholder="전화번호" :rules="phoneRules"><br><br>
+						회원정보로 등록하실 이름을 입력해주세요. 영문 혹은 한글2~15자 이내로 입력해주세요.
+					</td>
 				</tr>
 				<tr>
 					<th>이름</th>
@@ -36,24 +40,79 @@
 				</tr>
 			</table>
 				<div class="terms_title">이용약관</div>
+				
 				<div class="terms_check">
-					<div>
-						<label class="checkbox fl" style="">
-							<input type="checkbox" v-model="Y">
-								<i class="check-icon"></i><span class="terms_txt">이용약관
-									</span>
+					<div class="terms_block">
+						<label >
+							<span class="terms_txt">
+								<input type="checkbox" v-model="Y" >이용약관</span>
+									<v-dialog v-model="terms1_dialog">
+									<template v-slot:activator="{ on, attrs }">
+											<button v-bind="attrs" v-on="on" style="float:right">내용보기</button>
+										</template>
+										<v-card>
+											<v-card-title class="text-h5">
+												제목
+											</v-card-title>
+
+											<v-card-text>
+												본문
+											</v-card-text>
+										</v-card>
+									</v-dialog>
 								</label>
 							</div>
-					<div></div>
-					<div></div>
-				</div>
+						<br>
+					<div class="terms_block">
+						<label>
+							<span class="terms_txt">
+								<input type="checkbox" v-model="Y" >개인정보 취급방침</span>
+									<v-dialog v-model="terms2_dialog">
+									<template v-slot:activator="{ on, attrs }">
+											<button v-bind="attrs" v-on="on" style="float:right">내용보기</button>
+										</template>
+										<v-card>
+											<v-card-title class="text-h5">
+												제목2
+											</v-card-title>
+
+											<v-card-text>
+												본문2
+											</v-card-text>
+										</v-card>
+									</v-dialog>
+								</label>
+					</div>
+					<br>
+					<div class="terms_block">
+						<label class="checkbox_label">
+							<span class="terms_txt">
+								<input type="checkbox" v-model="Y" >위치기반 서비스 이용약관</span>
+									<v-dialog v-model="terms3_dialog">
+									<template v-slot:activator="{ on, attrs }">
+											<button v-bind="attrs" v-on="on" style="float:right">내용보기</button>
+										</template>
+										<v-card>
+											<v-card-title class="text-h5">
+												제목3
+											</v-card-title>
+
+											<v-card-text>
+												본문3
+											</v-card-text>
+										</v-card>
+									</v-dialog>
+								</label>
+							</div>
+					</div>
 				<div class="terms_allCheck">
 					
 				</div>
 			<div class="row">
-				<button class="join_btn" type="button">회원가입하기</button>
+				<button class="join_btn" @submit.prevent="onSubmit">회원가입하기</button>
 			</div>
 		</div>
+		</form>
 	</v-container>	
 </template>
 
@@ -83,7 +142,11 @@ export default {
 			code: null,
 			randomCode: null,
 			completeId: false,
-			completeEmail: false
+			completeEmail: false,
+
+			terms_dialog1: false,
+			terms_dialog2: false,
+			terms_dialog3: false,
 		}
 	},
 	mounted() {
@@ -93,13 +156,9 @@ export default {
 	},
 	methods: {
 		onSubmit () {
-			const { password, email, name, phone, auth } = this
-			if (this.completeId && this.completeEmail) { 
-					this.$emit('submit', { password, email, name, phone, auth })
-			} else {
-				alert("아이디 또는 이메일 인증을 완료해주세요.")
-			}
-			//this.$emit('submit', { userId, password, email, name, birth, sex, phone, auth })
+			const { password, email, name, phone } = this
+					this.$emit('submit', { password, email, name, phone }) 
+			
 		},
 		checkEmail () {
 			const email = this.email
@@ -216,9 +275,15 @@ export default {
 	}
 
 	.terms_check{
-		height: 174px;
+		height: 134px;
 		width: 960px;
 		padding: 30px 50px 30px 50px;
+	}
+
+	.checkbox_label{
+		height: auto;
+		width: auto;
+		margin: 0 NaNpx 0 NaNpx;
 	}
 
 	.terms_allCheck{
@@ -233,9 +298,11 @@ export default {
 	}
 
 	.terms_txt{
-		font-size: 13px;
-		font-weight: 700;
-		cursor: pointer
+		font-size: 16px;
+		font-weight: 500;
+		cursor: pointer;
+
+		float: left;
 	}
 
 	.row{
