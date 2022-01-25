@@ -19,30 +19,10 @@ export default {
   },
   methods: {
     kakaoLogin() {
-      window.Kakao.Auth.login({
-        scope: "profile_nickname, profile_image, account_email",
-        success: this.getKakaoAccount,
-      });
-    },
-    getKakaoAccount() {
-      window.Kakao.API.request({
-        url: "/v2/user/me",
-        success: (res) => {
-          const kakao_account = res.kakao_account;
-          const nickname = kakao_account.profile_nickname.nickname; //카카오 닉네임
-          const email = kakao_account.email; //카카오 이메일
-          console.log("nickname", nickname);
-          console.log("email", email);
-          //로그인 처리 구현
-          console.log(kakao_account);
-          this.$store.commit("user", kakao_account);
-          alert("로그인 성공!");
-        },
-        fail: (error) => {
-          // this.$router.push("/errorPage");
-          console.log(error);
-        },
-      });
+      const params = {
+          redirectUri: "http://localhost:8080/login",
+      };
+      window.Kakao.Auth.authorize(params);
     },
     kakaoLogout() {
       if (!window.Kakao.Auth.getAccessToken()) {

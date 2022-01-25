@@ -11,7 +11,7 @@
           outlined ></v-text-field>
       </v-col>
 			<v-col sm="5">
-        <v-text-field type="password" v-model="pw" :rules="pwRules" placeholder="비밀번호를 입력해주세요." required
+        <v-text-field type="password" v-model="password" :rules="pwRules" placeholder="비밀번호를 입력해주세요." required
           outlined ></v-text-field>
       </v-col>
       <v-col sm="5">
@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 
 import KakaoLogin from '../member/KakaoLogin.vue'
 import NaverLogin from '../member/NaverLogin.vue'
@@ -42,10 +43,18 @@ export default {
   },
   data() {
     return {
-      code: "",
+      email: '',
+      password: '',
     };
   },
+  computed: {
+    ...mapState(['emailRules', 'pwRules'])
+  },
   methods: {
+    onSubmit () {
+			const { email, password } = this
+			this.$emit('submit', { email, password })
+		},
     Gomain () {
 			this.$router.push({ name: 'Home' })
 		},

@@ -1,6 +1,6 @@
 package com.example.backend.controller;
 
-import com.example.backend.controller.session.UserInfo;
+//import com.example.backend.controller.session.UserInfo;
 import com.example.backend.request.MemberRequest;
 import com.example.backend.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +28,7 @@ public class MemberController {
     @Autowired
     private MemberService service;
 
-    private UserInfo info;
+    //private UserInfo info;
 
     private HttpSession session;
 
@@ -54,8 +54,8 @@ public class MemberController {
 
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<UserInfo> jpaLogin(
+    @PostMapping("/login")//ResponseEntity<UserInfo>
+    public ResponseEntity jpaLogin(
             @RequestBody MemberRequest memberRequest,
             HttpServletRequest request
     ) throws Exception {
@@ -64,6 +64,7 @@ public class MemberController {
 
         MemberRequest memberResponse = service.login(memberRequest);
 
+        /*
         if (!memberResponse.equals(null)) {
             log.info("Login Success");
             // 세션 할당
@@ -80,6 +81,7 @@ public class MemberController {
         }
 
         return new ResponseEntity<UserInfo>(info, HttpStatus.OK);
-
+    */
+        return new ResponseEntity(info, HttpStatus.OK);
     }
 }

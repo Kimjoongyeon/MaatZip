@@ -39,7 +39,7 @@ export default {
       this.$router.push({name: 'MemberJoinPage'})
     },
     gotoLogin() {
-      this.$router.push('/login')
+      this.$router.push({ name: 'MemberLoginPage' })
     },
     logout () {
       this.$store.commit('USER_LOGIN', false)
