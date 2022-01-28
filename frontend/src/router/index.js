@@ -6,6 +6,8 @@ import Home from '../views/Home.vue'
 import MemberLoginPage from '../views/member/MemberLoginPage.vue'
 import MemberJoinPage from '../views/member/MemberJoinPage.vue'
 
+import DinerMap from '../views/map/DinerMap.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -23,6 +25,11 @@ const routes = [
     path: '/join',
     name: 'MemberJoinPage',
     component: MemberJoinPage
+  },
+  {
+    path: '/map',
+    name: 'DinerMap',
+    component: DinerMap
   },
 
 ]

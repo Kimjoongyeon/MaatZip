@@ -6,6 +6,13 @@
 			</h1>
       <!--<ul><input type="text" class="form_control" placeholder="검색 키워드를 입력하세요!" flat none></ul>-->
     </div>
+			<ul class="navbar">
+				<li>
+					<a href="map">
+						<span>맛집찾기</span>
+					</a>
+				</li>
+			</ul>
     <div class="right-header">
 			<v-container>
 				<div v-if="isLogin">
@@ -70,9 +77,29 @@ export default {
 		float: left;
 		margin-right: 40px;
 	}
-
-  ol, ul {
+	ol, ul {
 		list-style: none;
+	}
+
+  ul.navbar {
+		float: left;
+		margin-left: 10px;
+	}
+
+	ul.navbar li {
+		float: left;
+		margin-right: 50px;
+		color: black;
+	}
+
+	ul.navbar li span {
+		display: block;
+		color: black;
+	}
+
+	ul.navbar li span a{
+		display: block;
+		color: black;
 	}
 
 	a {
