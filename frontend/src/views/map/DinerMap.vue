@@ -1,15 +1,15 @@
 <template>
   <v-sheet class="fill-height">
-    <NaverMap></NaverMap>
+    <Map></Map>
   </v-sheet>
 </template>
 
 <script>
-import NaverMap from '@/components/map/NaverMap'
+import Map from '@/components/map/Map'
 export default {
   name: 'DinerMap',
   components: {
-    NaverMap
+    Map
   },
 }
 </script>
